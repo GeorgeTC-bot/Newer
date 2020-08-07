@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Pressure Plate.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Pressure plate.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 30.8169, 10.0713 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25.9151, 5.61487 )
+
+[node name="Enemy" type="KinematicBody2D"]
+position = Vector2( 3.6521, 0 )
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+
+[node name="Pressure plate" type="Sprite" parent="."]
+position = Vector2( 0, -1.8629 )
+scale = Vector2( 0.5, 0.476714 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 36.2742 )
+shape = SubResource( 2 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+position = Vector2( 4.90192, -20.5881 )
+monitorable = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+position = Vector2( -4.902, 43.588 )
+shape = SubResource( 1 )
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="body_exited" from="StompDetector" to="." method="_on_StompDetector_body_exited"]
